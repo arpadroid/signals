@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
+        "declaration": true,
+        "declarationMap": true,
+        "emitDeclarationOnly": true,
+        "esModuleInterop": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "resolveJsonModule": true,
+        "strict": true,
+        "target": "ESNext",
+        "types": ["jest", "node"],
+        "typeRoots": ["./node_modules/@types"],
+        "useDefineForClassFields": false,
+        "strictPropertyInitialization": false,
+        "rootDir": "./src",
+        "outDir": "./dist/@types",
+        "jsx": "react",
+        "skipLibCheck": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["./node_modules", "dist", "./dist/@types", "**/*.test.js"]
+}
