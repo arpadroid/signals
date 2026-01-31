@@ -28,7 +28,7 @@ let SIGNAL_BATCH_COUNT = 0;
  * Logs signals to the console.
  * @param {ObserverType} instance
  */
-const _logSignals = instance => {
+export const _logSignals = instance => {
     console.log('ObserverTool => on', {
         SIGNAL_COUNT,
         SIGNAL_BATCH_COUNT,
@@ -41,14 +41,14 @@ const _logSignals = instance => {
 };
 
 /** @type {(instance: Record<string, any>) => void} */
-const logSignals = debounce(_logSignals, 1000);
+export const logSignals = debounce(_logSignals, 1000);
 
 /**
  * Reports signals to the console.
  * @param {string} signalName
  * @param {Record<string, any>} instance
  */
-const reportSignals = (signalName, instance) => {
+export const reportSignals = (signalName, instance) => {
     SIGNAL_COUNT++;
     SIGNAL_BATCH_COUNT++;
     SIGNAL_REGISTRY[signalName] = SIGNAL_REGISTRY[signalName] || 0;
