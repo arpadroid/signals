@@ -50,8 +50,7 @@
     },
     "homepage": "https://github.com/arpadroid/signals#readme",
     "dependencies": {
-        "@arpadroid/tools-iso": "file:../tools-iso",
-        "jest-junit": "^16.0.0"
+        "@arpadroid/tools-iso": "file:../tools-iso"
     },
     "devDependencies": {
         "@babel/preset-env": "^7.23.9",
@@ -65,5 +64,9 @@
         "jest": "^30.2.0",
         "prettier": "^3.7.4",
         "typescript": "^5.9.3"
+    },
+    "overrides": {
+        "minimatch": "10.2.1",
+        "ajv": "8.18.0"
     }
 }
