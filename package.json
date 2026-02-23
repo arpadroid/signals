@@ -23,7 +23,10 @@
         "build": "tsc"
     },
     "exports": {
-        ".": "./src/index.js",
+        ".": {
+            "types": "./dist/@types/types.compiled.d.ts",
+            "import": "./src/index.js"
+        },
         "./observerTool": {
             "types": "./dist/@types/observerTool/observerTool.d.ts",
             "default": "./src/observerTool/observerTool.js"

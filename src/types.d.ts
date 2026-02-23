@@ -1,1 +1,1 @@
-export * from './observerTool/observerTool.types';
+export type dummyType = string;
