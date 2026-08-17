@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export type SignalType = (
-    signalName?: string,
-    payload?: unknown,
-    payload2?: unknown,
-    payload3?: unknown
-) => void;
+export type SignalType = (signalName: string, payload?: unknown) => void;
 
 export type SignalCallBackType = (...args: any[]) => void;
 
@@ -22,7 +17,7 @@ export type ObserverType = {
     on?: ListenerType;
     off?: OffType;
     signal?: SignalType | undefined;
-    unsubscribe?: (signalName: string, callback: SignalType) => UnsubscribeType;
+    unsubscribe?: (signalName: string, callback: SignalCallBackType) => UnsubscribeType;
     _observerTool?: ObserverStoreType;
 };
 

@@ -66,7 +66,10 @@ export const reportSignals = (signalName, instance) => {
 //////////////////////////
 /**
  * Subscribes to a signal.
- * @type {ListenerType}
+ * @param {string} signalName
+ * @param {SignalCallBackType} callback
+ * @param {UnsubscribeType[]} [unsubscribes]
+ * @returns {UnsubscribeType | undefined}
  * @this {ObserverType}
  */
 export function on(signalName, callback, unsubscribes) {
@@ -96,7 +99,11 @@ export function off(signalName, callback) {
 
 /**
  * Calls all subscribers of a signal.
- * @type {SignalType}
+ * @param {string} signalName
+ * @param {unknown} value
+ * @param {unknown} param1
+ * @param {unknown} param2
+ * @returns {void}
  * @this {ObserverType}
  */
 export function signal(signalName, value, param1, param2) {
@@ -155,15 +162,20 @@ function logDummy(...args) {
 
 /**
  * A dummy signal method.
- * @type {SignalType}
+ * @param {string} signalName
+ * @param {unknown} [payload]
+ * @param {unknown} [payload2]
+ * @param {unknown} [payload3]
+ * @returns {void}
  */
-export function dummySignal(signalName, ...payload) {
-    logDummy(signalName, payload);
+export function dummySignal(signalName, payload, payload2, payload3) {
+    logDummy(signalName, payload, payload2, payload3);
 }
 
 /**
  * A dummy callback method.
- * @type {SignalCallBackType}
+ * @param {...unknown} payload
+ * @returns {void}
  */
 export function dummyCallback(...payload) {
     logDummy(payload);
@@ -171,15 +183,18 @@ export function dummyCallback(...payload) {
 
 /**
  * A dummy unsubscribe method.
- * @type {UnsubscribeType}
+ * @returns {void}
  */
-export function dummyUnsubscribe(...payload) {
-    logDummy(payload);
+export function dummyUnsubscribe() {
+    logDummy();
 }
 
 /**
  * A dummy listener method.
- * @type {ListenerType}
+ * @param {string} signalName
+ * @param {SignalCallBackType} callback
+ * @param {UnsubscribeType[]} [unsubscribes]
+ * @returns {UnsubscribeType}
  * @this {ObserverType}
  */
 export function dummyListener(signalName, callback, unsubscribes) {
@@ -189,7 +204,9 @@ export function dummyListener(signalName, callback, unsubscribes) {
 
 /**
  * A dummy off method.
- * @type {OffType}
+ * @param {string} signalName
+ * @param {SignalCallBackType} callback
+ * @returns {void}
  * @this {ObserverType}
  */
 export function dummyOff(signalName, callback) {

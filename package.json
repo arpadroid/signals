@@ -10,17 +10,21 @@
         "pubsub",
         "events"
     ],
-    "types": "./dist/@types/index.d.ts",
+    "types": "./dist/@types/types.compiled.d.ts",
     "type": "module",
     "scripts": {
-        "clean:install": "npm run clean && npm install",
-        "clean": "rm -rf ./dist ./node_modules package-lock.json && npm i",
         "lint": "eslint src/**/*.{js,mjs}",
         "prepublishOnly": "npm run test && npm run lint && npm run build",
-        "test:coverage": "jest --coverage",
-        "test:watch": "jest --watch",
-        "test": "jest",
-        "build": "tsc"
+        "build": "arpadroid-build --minify",
+        "test": "arpadroid-test --jest",
+        "test:watch": "npm test -- --watch",
+        "t": "npm test -- --slim",
+        "t:w": "npm test -- --watch",
+        "test:coverage": "npm test -- --coverage",
+        "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
+        "clean": "arpadroid-clean",
+        "check:types": "arpadroid-check-types",
+        "initialize": "arpadroid-initialize"
     },
     "exports": {
         ".": {
@@ -56,16 +60,8 @@
         "@arpadroid/tools-iso": "file:../tools-iso"
     },
     "devDependencies": {
-        "@babel/preset-env": "^7.29.2",
-        "@eslint/js": "^10.0.1",
-        "@jest/globals": "^30.2.0",
-        "@types/jest": "^30.0.0",
-        "@types/node": "^25.5.0",
-        "babel-jest": "^30.2.0",
-        "eslint": "^10.0.3",
-        "globals": "^17.4.0",
-        "jest": "^30.3.0",
-        "prettier": "^3.8.1",
-        "typescript": "^5.9.3"
+        "@arpadroid/module": "file:../module",
+        "@babel/preset-env": "^8.0.2",
+        "typescript": "^7.0.2"
     }
 }

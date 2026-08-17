@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { jest, describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { signal, unsubscribe, _logSignals, reportSignals } from './observerTool.js';
 import { dummyListener, dummyOff, on, off } from './observerTool.js';
 import { observerMixin, dummySignal, dummyCallback, dummyUnsubscribe } from './observerTool.js';
@@ -8,12 +8,14 @@ class TestClass {
     signal = dummySignal;
     /** @type {Function} */
     on;
+    /** @type {Function} */
+    off;
 
     constructor() {
         observerMixin(this);
     }
 
-    changeTestProperty(value) {
+    changeTestProperty(value = false) {
         this.testProperty = value;
         this.signal('TEST_PROPERTY', value);
     }
@@ -71,6 +73,7 @@ describe('Observer tool', () => {
     it('collects unsubscribes in array when provided', () => {
         const callback = jest.fn();
         const instance = new TestClass();
+        /** @type {(() => void)[]} */
         const unsubscribes = [];
 
         instance.on('SIGNAL_1', callback, unsubscribes);
@@ -86,6 +89,7 @@ describe('Observer tool', () => {
 });
 
 describe('Dummy methods log errors', () => {
+    /** @type {ReturnType<typeof jest.spyOn>} */
     let consoleSpy;
 
     beforeEach(() => {
@@ -105,7 +109,7 @@ describe('Dummy methods log errors', () => {
         expect(consoleSpy).toHaveBeenCalled();
         consoleSpy.mockClear();
 
-        dummyUnsubscribe('arg');
+        dummyUnsubscribe();
         expect(consoleSpy).toHaveBeenCalled();
         consoleSpy.mockClear();
 
@@ -129,6 +133,7 @@ describe('Direct function calls without mixin', () => {
 
         // off and signal don't throw
         expect(() => off.call(context, 'SIGNAL', callback)).not.toThrow();
+        // @ts-expect-error
         expect(() => signal.call(context, 'SIGNAL', 'value')).not.toThrow();
 
         // unsubscribe returns callable function
@@ -142,7 +147,7 @@ describe('Debug logging functions', () => {
     it('_logSignals logs signal registry and resets batch counters', () => {
         const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
         const instance = new TestClass();
-
+        // @ts-expect-error
         _logSignals(instance);
 
         expect(consoleSpy).toHaveBeenCalledWith(
